@@ -26,7 +26,7 @@ class Plants(models.Model):
 	nursery = models.ForeignKey(Nursery, on_delete = models.CASCADE)
 	name = models.CharField(max_length = 100)
 	description = models.CharField(max_length = 500)
-	image = models.ImageField(upload_to = "../media/images/", blank = True, null = True, default = "../media/images/no_image.jpg")
+	image = models.ImageField(upload_to = "../media/images/", null = True)
 	price = models.FloatField()
 
 	def order_plant(self):
