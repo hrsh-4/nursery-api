@@ -320,7 +320,7 @@ def orders(request):
 def add_plant(request):
 	if Nursery.objects.filter(user = request.user):
 		if request.method == "POST":
-			plant_form = PlantForm(request.POST)
+			plant_form = PlantForm(request.POST, request.FILES)
 			if plant_form.is_valid():
 				nursery = Nursery.objects.get(user = request.user)
 				plant = Plants()
@@ -331,6 +331,7 @@ def add_plant(request):
 
 				plant.nursery = nursery
 				plant.save()
+				print("plant created")
 				return HttpResponseRedirect(reverse("home"))
 			else:
 				print(plant_form.errors)
@@ -339,20 +340,7 @@ def add_plant(request):
 
 			return render(request,"add_plant.html",{"plant_form":plant_form})
 	else:
-		HttpResponse("Only nursery is authorised to add plants")
+		return HttpResponse("Only nursery is authorised to add plants")
 
 
 
-
-
-
-
-
-
-
-# {
-# 	"plant" : "hibiscus",
-# 	"street" : "vijay nagar",
-# 	"city" : "indore",
-# 	"contact" : "78878788776"
-# }
